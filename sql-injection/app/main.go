@@ -14,11 +14,11 @@ import (
 func main() {
 	dbHost := os.Getenv("DB_HOST")
 	if dbHost == "" {
-		dbHost = "localhost"
+		dbHost = "db"
 	}
 
 	connStr := fmt.Sprintf(
-		"host=%s port=5432 user=vulnerable password=password123 dbname=vuln_db sslmode=disable",
+		"host=%s port=5432 user=admin password=pass dbname=vuln sslmode=disable",
 		dbHost,
 	)
 
@@ -33,7 +33,7 @@ func main() {
 		log.Fatal("Cannot connect to database:", err)
 	}
 
-	log.Println("✅ Connected to database")
+	log.Println("Connected to database")
 
 	// Роутинг
 	http.HandleFunc("/", homeHandler)
@@ -54,7 +54,6 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 		<ul>
 			<li><a href="/login">Login Form (Vulnerable)</a></li>
 			<li><a href="/search">Product Search (Vulnerable to UNION)</a></li>
-			<li><a href="/login-secure">Secure Login</a></li>
 		</ul>
 	</body>
 	</html>`

@@ -63,7 +63,7 @@ func VulnerableLoginHandler(db *sql.DB) http.HandlerFunc {
 					<html>
 					<head><title>Success</title></head>
 					<body>
-						<h1>✅ Login Successful!</h1>
+						<h1>Login Successful!</h1>
 						<p><b>User ID:</b> %d</p>
 						<p><b>Username:</b> %s</p>
 						<p><b>Email:</b> %s</p>
