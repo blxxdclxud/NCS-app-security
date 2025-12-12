@@ -13,14 +13,14 @@ Classic stack-based buffer overflow demo: overwrite return address and pop an in
 
 **Option 1: One command (auto-run exploit)**
 ```bash
-cd /home/yusuf/Documents/NCS-app-security
+cd .../NCS-app-security
 docker-compose up buffer-overflow
 ```
 This automatically builds (if needed), runs the container, and executes the exploit.
 
 **Option 2: Interactive mode**
 ```bash
-cd /home/yusuf/Documents/NCS-app-security
+cd .../NCS-app-security
 docker-compose run buffer-overflow /bin/bash
 # Inside container, run:
 python3 exploit.py local
