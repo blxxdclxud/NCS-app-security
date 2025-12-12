@@ -9,24 +9,29 @@ Classic stack-based buffer overflow demo: overwrite return address and pop an in
 - `Dockerfile` — container with build + optional pwntools.
 - `analysis/stack.md` — stack layout and mitigations overview.
 
-### Quick start (Docker)
+### Quick start (Docker Compose)
 
 **Option 1: One command (auto-run exploit)**
 ```bash
-docker build -t bof-demo ./buffer-overflow
-docker run --rm -it --privileged bof-demo python3 exploit.py local
+cd /home/yusuf/Documents/NCS-app-security
+docker-compose up buffer-overflow
 ```
-This automatically runs the exploit and gives you a shell.
+This automatically builds (if needed), runs the container, and executes the exploit.
 
 **Option 2: Interactive mode**
 ```bash
-docker build -t bof-demo ./buffer-overflow
-docker run --rm -it --privileged bof-demo
+cd /home/yusuf/Documents/NCS-app-security
+docker-compose run buffer-overflow /bin/bash
 # Inside container, run:
 python3 exploit.py local
 ```
 
-**Note:** The `--privileged` flag is required to disable ASLR for deterministic addresses. The entrypoint script automatically sets `/proc/sys/kernel/randomize_va_space = 0` at runtime.
+**Option 3: Build only**
+```bash
+docker-compose build buffer-overflow
+```
+
+**Note:** The `privileged: true` setting in docker-compose.yml is required to disable ASLR for deterministic addresses. The entrypoint script automatically sets `/proc/sys/kernel/randomize_va_space = 0` at runtime.
 
 ### Local build and run
 ```bash
