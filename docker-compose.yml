@@ -24,6 +24,18 @@ services:
     networks:
       - vuln-net
 
+  buffer-overflow:
+    build:
+      context: ./buffer-overflow
+      dockerfile: Dockerfile
+    container_name: ncs-buffer-overflow
+    privileged: true  # Required to disable ASLR
+    # Run exploit automatically
+    command: python3 exploit.py local
+    # Or use interactive mode: remove 'command' and use: docker-compose run buffer-overflow /bin/bash
+    stdin_open: true
+    tty: true
+
 volumes:
   db-data:
 
