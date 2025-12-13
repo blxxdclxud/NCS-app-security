@@ -12,13 +12,34 @@ services:
       - "5432:5432"
     networks:
       - vuln-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d vuln"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
   sql-injection:
     build: ./sql-injection/app
     ports:
       - "8081:8081"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+    networks:
+      - vuln-net
+
+
+
+  blind-sql-injection:
+    build: ./blind-sql-injection/app
+    ports:
+      - "8082:8082"
+    depends_on:
+      db:
+        condition: service_healthy
     environment:
       DB_HOST: db
     networks:
