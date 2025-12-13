@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: vuln
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - vuln-net
+
+  sql-injection:
+    build: ./sql-injection/app
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+    networks:
+      - vuln-net
+
+volumes:
+  db-data:
+
+networks:
+  vuln-net:
+    driver: bridge
