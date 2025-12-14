@@ -47,8 +47,25 @@ func BlindLoginHandler(db *sql.DB) http.HandlerFunc {
 		defer rows.Close()
 
 		if rows.Next() {
+			w.Header().Set("Content-Type", "text/html; charset=utf-8")
 			w.WriteHeader(http.StatusOK)
-			_, _ = w.Write([]byte("OK"))
+
+			html := `
+			<!DOCTYPE html>
+			<html>
+			<head><title>Login Successful</title></head>
+			<body>
+				<h1>Login Successful!</h1>
+				<p><b>Username:</b> admin</p>
+				<p><b>Note:</b> This page is returned even though the application
+				uses a blind (boolean-based) SQL injection point. The attacker
+				normally discovers the correct password by observing only whether
+				the response is success or failure.</p>
+				<a href="/blind/login">Back to login</a>
+			</body>
+			</html>`
+
+			_, _ = w.Write([]byte(html))
 		} else {
 			http.Error(w, "Invalid credentials", http.StatusUnauthorized)
 		}
