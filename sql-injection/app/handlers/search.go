@@ -31,15 +31,20 @@ func VulnerableSearchHandler(db *sql.DB) http.HandlerFunc {
 
 		searchQuery := r.URL.Query().Get("q")
 
-		// VULN
-		query := fmt.Sprintf(
+		// VULN:
+		rows, err := db.Query(fmt.Sprintf(
 			"SELECT id, name, price, description FROM products WHERE name LIKE '%%%s%%'",
 			searchQuery,
-		)
+		))
 
-		fmt.Println("Executing query:", query)
+		// SECURE:
+		//searchPattern := "%" + searchQuery + "%"
+		//
+		//rows, err := db.Query(
+		//	"SELECT id, name, price, description FROM products WHERE name LIKE $1",
+		//	searchPattern,
+		//)
 
-		rows, err := db.Query(query)
 		if err != nil {
 			http.Error(w, "Database error: "+err.Error(), 500)
 			return

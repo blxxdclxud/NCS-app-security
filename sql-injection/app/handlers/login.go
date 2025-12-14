@@ -43,6 +43,12 @@ func VulnerableLoginHandler(db *sql.DB) http.HandlerFunc {
 			username, password,
 		)
 
+		// SECURE:
+		//db.QueryRow(
+		//	"SELECT id, username, email, is_admin FROM users WHERE username=$1 AND password=$2",
+		//	username, password,
+		//)
+
 		fmt.Println("Executing query:", query)
 
 		rows, err := db.Query(query)

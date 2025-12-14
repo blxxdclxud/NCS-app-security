@@ -31,8 +31,6 @@ services:
     networks:
       - vuln-net
 
-
-
   blind-sql-injection:
     build: ./blind-sql-injection/app
     ports:
