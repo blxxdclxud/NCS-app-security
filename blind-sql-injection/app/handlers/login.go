@@ -59,7 +59,7 @@ func BlindLoginHandler(db *sql.DB) http.HandlerFunc {
 		html := fmt.Sprintf(`
 		<!DOCTYPE html>
 		<html>
-		<head><title>Login Successful</title></head>
+		<head><title>Success</title></head>
 		<body>
 			<h1>Login Successful!</h1>
 
