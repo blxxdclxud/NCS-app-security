@@ -4,9 +4,8 @@ This topic demonstrates boolean-based and time-based blind SQL injection in a Go
 
 ## Structure
 
-- `vulnerable-app/app`: Go HTTP server with vulnerable `/blind/login` and `/blind/product` endpoints.
+- `app`: Go HTTP server with vulnerable `/handlers/login` and `/handlers/product` endpoints.
 - `exploits`: Python scripts and a sqlmap wrapper to exploit blind SQLi.
-- `fixed-app/app`: Secure version using prepared statements (not shown here).
 
 ## Running
 
